@@ -1,11 +1,14 @@
 import { Button } from "@/components/ui/button";
-import { Shield, Wallet, Menu, X } from "lucide-react";
+import { Wallet, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useAccount } from 'wagmi';
 
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { isConnected, address } = useAccount();
 
   const navItems = [
     { name: "Features", href: "/features" },
@@ -25,12 +28,12 @@ export const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <div className="p-2 bg-gradient-primary rounded-lg">
-              <Shield className="h-6 w-6 text-white" />
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-sm">SPF</span>
             </div>
             <div>
               <h1 className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                MedSecure
+                Secure Premium Flow
               </h1>
               <p className="text-sm text-muted-foreground">
                 Fair Premiums, Private Health
@@ -74,10 +77,7 @@ export const Header = () => {
             <Button variant="ghost" size="sm">
               Sign In
             </Button>
-            <Button variant="medical" size="sm" className="gap-2">
-              <Wallet className="h-4 w-4" />
-              Connect Wallet
-            </Button>
+            <ConnectButton />
           </div>
 
           {/* Mobile Menu Button */}
@@ -130,10 +130,9 @@ export const Header = () => {
                 <Button variant="ghost" size="sm" className="w-full">
                   Sign In
                 </Button>
-                <Button variant="medical" size="sm" className="w-full gap-2">
-                  <Wallet className="h-4 w-4" />
-                  Connect Wallet
-                </Button>
+                <div className="w-full">
+                  <ConnectButton />
+                </div>
               </div>
             </nav>
           </div>

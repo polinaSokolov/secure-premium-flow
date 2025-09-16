@@ -1,3 +1,4 @@
+import { Header } from "@/components/Header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -48,6 +49,7 @@ const SubmitHealthData = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Header />
       <section className="py-20">
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="text-center mb-12">
