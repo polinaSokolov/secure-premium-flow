@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Calculator, Shield, TrendingUp, FileText, Clock, CheckCircle, AlertCircle, Wallet } from "lucide-react";
+import { Calculator, TrendingUp, FileText, Clock, CheckCircle, AlertCircle, Wallet, Activity, DollarSign } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useAccount } from 'wagmi';
 import { ConnectButton } from '@rainbow-me/rainbowkit';

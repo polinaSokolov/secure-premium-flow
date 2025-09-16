@@ -6,19 +6,45 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
-import { Shield, Upload, FileText, Lock, AlertCircle, Wallet } from "lucide-react";
+import { Upload, FileText, Lock, AlertCircle, Wallet, Heart, Activity, Database } from "lucide-react";
 import { useState } from "react";
 import { useAccount, useConnect } from 'wagmi';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useSecurePremiumFlow } from '@/hooks/useContract';
 
 const SubmitHealthData = () => {
   const [step, setStep] = useState(1);
   const totalSteps = 4;
   const progress = (step / totalSteps) * 100;
   const { isConnected, address } = useAccount();
+  const { submitHealthData, isSubmitting, isConfirmed, error } = useSecurePremiumFlow();
+
+  const [formData, setFormData] = useState({
+    age: '',
+    bmi: '',
+    bloodPressure: '',
+    cholesterol: '',
+    glucose: '',
+    hasSmokingHistory: false,
+    hasFamilyHistory: false,
+  });
 
   const nextStep = () => setStep(Math.min(step + 1, totalSteps));
   const prevStep = () => setStep(Math.max(step - 1, 1));
+
+  const handleSubmit = async () => {
+    if (!isConnected) return;
+    
+    await submitHealthData({
+      age: parseInt(formData.age),
+      bmi: parseInt(formData.bmi),
+      bloodPressure: parseInt(formData.bloodPressure),
+      cholesterol: parseInt(formData.cholesterol),
+      glucose: parseInt(formData.glucose),
+      hasSmokingHistory: formData.hasSmokingHistory,
+      hasFamilyHistory: formData.hasFamilyHistory,
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -56,12 +82,32 @@ const SubmitHealthData = () => {
             <Progress value={progress} className="h-2" />
           </div>
 
+          {/* Error Display */}
+          {error && (
+            <Card className="p-4 mb-6 border-red-200 bg-red-50">
+              <div className="flex items-center gap-2">
+                <AlertCircle className="h-5 w-5 text-red-600" />
+                <p className="text-red-700">{error}</p>
+              </div>
+            </Card>
+          )}
+
+          {/* Success Display */}
+          {isConfirmed && (
+            <Card className="p-4 mb-6 border-green-200 bg-green-50">
+              <div className="flex items-center gap-2">
+                <Database className="h-5 w-5 text-green-600" />
+                <p className="text-green-700">Health data successfully encrypted and stored on blockchain!</p>
+              </div>
+            </Card>
+          )}
+
           <Card className="p-8 bg-gradient-card">
             {step === 1 && (
               <div className="space-y-6">
                 <div className="flex items-center gap-3 mb-6">
-                  <FileText className="h-6 w-6 text-medical-blue" />
-                  <h2 className="text-2xl font-semibold">Basic Information</h2>
+                  <Heart className="h-6 w-6 text-red-500" />
+                  <h2 className="text-2xl font-semibold">Basic Health Information</h2>
                 </div>
                 
                 <div className="grid md:grid-cols-2 gap-6">
@@ -226,9 +272,14 @@ const SubmitHealthData = () => {
                   Continue
                 </Button>
               ) : (
-                <Button variant="medical" className="gap-2">
-                  <Lock className="h-4 w-4" />
-                  Submit Encrypted Data
+                <Button 
+                  variant="medical" 
+                  className="gap-2"
+                  onClick={handleSubmit}
+                  disabled={isSubmitting || !isConnected}
+                >
+                  <Database className="h-4 w-4" />
+                  {isSubmitting ? 'Encrypting & Submitting...' : 'Submit Encrypted Data'}
                 </Button>
               )}
             </div>
