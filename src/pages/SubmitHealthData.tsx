@@ -1,4 +1,3 @@
-import { Header } from "@/components/Header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,21 +6,22 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
-import { Shield, Upload, FileText, Lock, AlertCircle } from "lucide-react";
+import { Shield, Upload, FileText, Lock, AlertCircle, Wallet } from "lucide-react";
 import { useState } from "react";
+import { useAccount, useConnect } from 'wagmi';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 const SubmitHealthData = () => {
   const [step, setStep] = useState(1);
   const totalSteps = 4;
   const progress = (step / totalSteps) * 100;
+  const { isConnected, address } = useAccount();
 
   const nextStep = () => setStep(Math.min(step + 1, totalSteps));
   const prevStep = () => setStep(Math.max(step - 1, 1));
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      
       <section className="py-20">
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="text-center mb-12">
@@ -32,6 +32,20 @@ const SubmitHealthData = () => {
               Securely submit your health information for accurate premium calculation
             </p>
           </div>
+
+          {/* Wallet Connection Check */}
+          {!isConnected && (
+            <Card className="p-6 mb-8 border-orange-200 bg-orange-50">
+              <div className="flex items-center gap-3 mb-4">
+                <Wallet className="h-6 w-6 text-orange-600" />
+                <h3 className="text-lg font-semibold text-orange-800">Wallet Connection Required</h3>
+              </div>
+              <p className="text-orange-700 mb-4">
+                Please connect your wallet to submit health data securely on the blockchain.
+              </p>
+              <ConnectButton />
+            </Card>
+          )}
 
           {/* Progress Bar */}
           <div className="mb-8">

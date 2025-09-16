@@ -1,15 +1,17 @@
-import { Header } from "@/components/Header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Calculator, Shield, TrendingUp, FileText, Clock, CheckCircle, AlertCircle } from "lucide-react";
+import { Calculator, Shield, TrendingUp, FileText, Clock, CheckCircle, AlertCircle, Wallet } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useAccount } from 'wagmi';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 const CalculatePremium = () => {
   const [calculationStep, setCalculationStep] = useState(0);
   const [isCalculating, setIsCalculating] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const { isConnected, address } = useAccount();
 
   const calculationSteps = [
     "Analyzing encrypted health data",
