@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 215 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 15%;
+
+    --primary: 200 95% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 158 65% 50%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 15% 95%;
+    --muted-foreground: 215 16% 55%;
+
+    --accent: 200 85% 92%;
+    --accent-foreground: 200 95% 25%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 20% 88%;
+    --input: 210 20% 88%;
+    --ring: 200 95% 45%;
+
+    /* Medical theme colors */
+    --medical-blue: 200 95% 45%;
+    --medical-green: 158 65% 50%;
+    --trust-blue: 210 100% 85%;
+    --secure-green: 150 60% 85%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--medical-blue)), hsl(var(--medical-green)));
+    --gradient-trust: linear-gradient(180deg, hsl(var(--trust-blue)), hsl(var(--secure-green)));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 15% 98%));
+    
+    /* Shadows */
+    --shadow-trust: 0 10px 30px -10px hsl(var(--medical-blue) / 0.2);
+    --shadow-secure: 0 5px 20px -5px hsl(var(--medical-green) / 0.15);
+    
+    /* Transitions */
+    --transition-trust: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 215 30% 8%;
+    --foreground: 210 20% 95%;
+
+    --card: 215 25% 12%;
+    --card-foreground: 210 20% 95%;
+
+    --popover: 215 25% 12%;
+    --popover-foreground: 210 20% 95%;
+
+    --primary: 200 95% 55%;
+    --primary-foreground: 215 30% 8%;
+
+    --secondary: 158 65% 45%;
+    --secondary-foreground: 215 30% 8%;
+
+    --muted: 215 20% 18%;
+    --muted-foreground: 215 15% 65%;
+
+    --accent: 200 85% 15%;
+    --accent-foreground: 200 95% 85%;
+
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 215 20% 20%;
+    --input: 215 20% 20%;
+    --ring: 200 95% 55%;
+
+    /* Dark medical theme */
+    --medical-blue: 200 95% 55%;
+    --medical-green: 158 65% 45%;
+    --trust-blue: 210 80% 15%;
+    --secure-green: 150 50% 15%;
+    
+    --gradient-primary: linear-gradient(135deg, hsl(var(--medical-blue)), hsl(var(--medical-green)));
+    --gradient-trust: linear-gradient(180deg, hsl(var(--trust-blue)), hsl(var(--secure-green)));
+    --gradient-card: linear-gradient(145deg, hsl(215 25% 12%), hsl(215 20% 15%));
+    
+    --shadow-trust: 0 10px 30px -10px hsl(var(--medical-blue) / 0.3);
+    --shadow-secure: 0 5px 20px -5px hsl(var(--medical-green) / 0.25);
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
